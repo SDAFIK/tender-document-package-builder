@@ -1,5 +1,6 @@
 import type { Language } from './types';
 const en = {
+  exportCsv:'Export checklist CSV',
   builder:'PACKAGE BUILDER', private:'Your files stay on this device', workspace:'TENDER WORKSPACE', heading:'A complete bid starts here.', intro:'Check your documents. Build a submission-ready package.',
   load:'Load tender', change:'Change tender', uploadStep:'Upload documents', matchStep:'Match & check', generateStep:'Generate package', workflow:'Workflow', deadline:'Submission deadline',
   checklist:'Document checklist', requirements:'requirements', hint:'Match each requirement to a PDF, then check its validity.', first:'First, load your tender.', chooseHelp:'Choose your requirements.json file to see the documents you need and their submission order.', choose:'Choose requirements.json', local:'Requirements and documents are processed on your device.',
@@ -11,6 +12,7 @@ const en = {
   changeTitle:'Change the tender?', changeHelp:'Loading another tender clears the current documents, matches, and expiry dates.', cancel:'Keep working', confirm:'Choose another tender', close:'Dismiss message',
 } as const;
 const bn: Record<keyof typeof en,string> = {
+  exportCsv:'চেকলিস্ট CSV ডাউনলোড',
   builder:'প্যাকেজ বিল্ডার', private:'আপনার ফাইল এই ডিভাইসেই থাকে', workspace:'দরপত্রের কর্মক্ষেত্র', heading:'সম্পূর্ণ দরপত্র তৈরির শুরু এখানেই।', intro:'নথি যাচাই করুন। জমা দেওয়ার উপযোগী প্যাকেজ তৈরি করুন।',
   load:'দরপত্র খুলুন', change:'দরপত্র পরিবর্তন', uploadStep:'নথি যোগ করুন', matchStep:'মিলিয়ে যাচাই', generateStep:'প্যাকেজ তৈরি', workflow:'কাজের ধাপ', deadline:'জমা দেওয়ার শেষ তারিখ',
   checklist:'নথির চেকলিস্ট', requirements:'টি চাহিদা', hint:'প্রতিটি চাহিদার সঙ্গে একটি PDF মিলিয়ে তার বৈধতা যাচাই করুন।', first:'প্রথমে দরপত্র খুলুন।', chooseHelp:'প্রয়োজনীয় নথি ও জমা দেওয়ার ক্রম দেখতে requirements.json ফাইলটি বেছে নিন।', choose:'requirements.json বেছে নিন', local:'চাহিদা ও নথি আপনার ডিভাইসেই প্রক্রিয়া করা হয়।',

@@ -9,7 +9,7 @@ export interface Message { code: string; detail?: string }
 export function useWorkspace() {
   const [data, setData] = useState<RequirementsFile | null>(null);
   const [documents, setDocuments] = useState<UploadedDocument[]>([]);
-  const [matches, setMatches] = useState<Matches>({});
+  const [matches, setMatches] = useState<Matches>(()=>Object.create(null) as Matches);
   const [messages, setMessages] = useState<Message[]>([]);
   const [busy, setBusy] = useState(false);
   const [processing, setProcessing] = useState('');
@@ -18,7 +18,7 @@ export function useWorkspace() {
   async function load(file?: File) {
     if (!file || lock.current) return;
     lock.current = true; setBusy(true); setGenerated(false);
-    try { const next = parseRequirements(await file.text()); setData(next); setDocuments([]); setMatches({}); setMessages([]); }
+    try { const next = parseRequirements(await file.text()); setData(next); setDocuments([]); setMatches(Object.create(null) as Matches); setMessages([]); }
     catch (e) { setMessages([{ code: e instanceof InputError ? e.code : 'read_error', detail: e instanceof InputError ? e.field : file.name }]); }
     finally { lock.current = false; setBusy(false); }
   }
@@ -47,7 +47,7 @@ export function useWorkspace() {
     catch (e) { setMessages([{ code: e instanceof Error ? e.message : 'read_error' }]); }
   }
   function expiry(requirementId: string, value: string) {
-    if (!lock.current) { setGenerated(false); setMatches(current => current[requirementId] ? { ...current, [requirementId]: { ...current[requirementId], expiry: value } } : current); }
+    if (!lock.current) { setGenerated(false); setMatches(current => current[requirementId] ? Object.assign(Object.create(null),current,{ [requirementId]: { ...current[requirementId], expiry: value } }) as Matches : current); }
   }
   async function generate() {
     if (!data || lock.current) return;

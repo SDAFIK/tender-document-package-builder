@@ -12,7 +12,7 @@ export function Checklist({ language, data, documents, matches, busy, match, exp
     <div className="match-controls"><select aria-label={`${t('fileFor')} ${language==='en'?r.title_en:r.title_bn}`} value={matches[r.id]?.documentId ?? ''} disabled={busy} onChange={e=>match(r.id,e.target.value)}><option value="">{t('select')}</option>{documents.map(d=>{
       const assigned = Object.entries(matches).find(([id,m])=>id!==r.id&&m.documentId===d.id)?.[0];
       const duplicateUsed = Object.entries(matches).some(([id,m])=>id!==r.id&&m.documentId!==d.id&&documents.find(doc=>doc.id===m.documentId)?.hash===d.hash);
-      return <option key={d.id} value={d.id} disabled={duplicateUsed}>{d.name} · {d.pages} {t('pages')}{assigned?' ('+t('move')+')':''}{duplicateUsed?' ('+t('duplicateUsed')+')':''}</option>;
+      return <option key={d.id} value={d.id} disabled={duplicateUsed}>{d.name} · {d.pages} {t(d.pages===1?'page':'pages')}{assigned?' ('+t('move')+')':''}{duplicateUsed?' ('+t('duplicateUsed')+')':''}</option>;
     })}</select>{matches[r.id]&&<button className="icon-button" title={t('undo')} aria-label={`${t('undo')} ${language==='en'?r.title_en:r.title_bn}`} disabled={busy} onClick={()=>match(r.id,'')}><RotateCcw size={16}/></button>}</div>
     {r.has_expiry&&matches[r.id]&&<label className="expiry-input">{t('expiry')}<input type="date" aria-label={`${t('expiryFor')} ${language==='en'?r.title_en:r.title_bn}`} value={matches[r.id].expiry} disabled={busy} onChange={e=>expiry(r.id,e.target.value)}/><small>{t('validAfter')} {data.tender.submission_deadline}</small></label>}</div></div>)}
     {!statuses.length&&<p className="checklist-hint">{t('noRequirements')}</p>}

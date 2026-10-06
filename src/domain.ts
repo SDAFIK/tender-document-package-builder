@@ -20,7 +20,7 @@ export function statusesFor(requirements: Requirement[], matches: Matches, docum
   return requirements.map(requirement => ({ requirement, status: getRequirementStatus(requirement, ids.has(matches[requirement.id]?.documentId), matches[requirement.id]?.expiry ?? '', deadline) }));
 }
 export function assign(matches: Matches, documents: UploadedDocument[], requirementId: string, documentId: string): Matches {
-  const next = { ...matches };
+  const next = Object.assign(Object.create(null), matches) as Matches;
   if (!documentId) { delete next[requirementId]; return next; }
   const document = documents.find(d => d.id === documentId);
   if (!document) throw new Error('unknown_file');
@@ -32,7 +32,7 @@ export function assign(matches: Matches, documents: UploadedDocument[], requirem
   return next;
 }
 export function removeDocument(matches: Matches, documentId: string): Matches {
-  return Object.fromEntries(Object.entries(matches).filter(([, match]) => match.documentId !== documentId));
+  return Object.assign(Object.create(null), Object.fromEntries(Object.entries(matches).filter(([, match]) => match.documentId !== documentId))) as Matches;
 }
 export function duplicateHashes(documents: UploadedDocument[]): Set<string> {
   const counts = new Map<string, number>();

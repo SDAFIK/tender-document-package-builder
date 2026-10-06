@@ -30,6 +30,11 @@ describe('matching', () => {
   it('undoes assignments', () => expect(assign({ x: { documentId: 'a', expiry: '' } }, docs, 'x', '')).toEqual({}));
   it('removes dangling matches', () => expect(removeDocument({ x: { documentId: 'a', expiry: '' } }, 'a')).toEqual({}));
   it('rejects nonexistent files', () => expect(() => assign({}, docs, 'x', 'z')).toThrow('unknown_file'));
+  it('handles IDs that resemble JavaScript prototype names',()=>{
+    const matches=assign({},docs,'__proto__','a');expect(matches['__proto__'].documentId).toBe('a');
+    expect(Object.keys(matches)).toEqual(['__proto__']);expect(matches['toString']).toBeUndefined();
+    expect(removeDocument(matches,'a')['__proto__']).toBeUndefined();
+  });
   it('marks duplicates by hash', () => expect([...duplicateHashes(docs)]).toEqual(['same']));
 });
 it('sorts numerically without mutating input, ties remain stable', () => {
