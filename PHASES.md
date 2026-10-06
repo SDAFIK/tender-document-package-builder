@@ -14,6 +14,6 @@ The user authorized continuous execution across phase boundaries. Work remained 
 | 8 PDF engine | package.ts, package.test.ts, generation flow | Cover, safe footer bands, order, totals, download; 41 tests/build passed | PDF visual QA next |
 | 9 Mandatory QA | browser/geometry scripts, output/, screenshots/ | Sample/unseen workflow, all 24 mandatory cases, limits, rendering; passed | Final deployment and Rulebook verification |
 | 10 Bonus | checklistExport.ts, test, localized export control | CSV checklist with UTF-8 BOM and formula protection; tests/build passed | Other optional bonuses deferred |
-| 11 Submission preparation | README, QA, walkthrough, this record, hosting manifest | Sample PDF and status screenshots produced; publication follows final checks | Rulebook and actual contest window not supplied |
+| 11 Submission and publication | README, QA, walkthrough, this record, hosting manifest | Sample PDF and status screenshots produced; public GitHub repository and successful public HTTPS deployment | Rulebook and actual contest window not supplied |
 
 Additional regression fix: canonical match objects support IDs such as `__proto__` without inherited property collisions. No contest business logic is hard-coded to the supplied pack.

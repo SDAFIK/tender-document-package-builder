@@ -3,7 +3,7 @@
 A browser-only application for checking tender documents and building an ordered, numbered PDF submission. The interface is available in English and Bangla.
 
 - Public source: https://github.com/SDAFIK/tender-document-package-builder
-- Deployment target: https://tenderdesk-package-builder.noble-civet-9864.chatgpt.site
+- Live website: https://tenderdesk-package-builder.jhahan-eshita.chatgpt.site
 
 ## Run locally
 
