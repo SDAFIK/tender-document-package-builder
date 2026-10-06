@@ -3,7 +3,7 @@
 A browser-only application for checking tender documents and building an ordered, numbered PDF submission. The interface is available in English and Bangla.
 
 - Public source: https://github.com/SDAFIK/tender-document-package-builder
-- Live website: https://tenderdesk-package-builder.jhahan-eshita.chatgpt.site
+- Website: https://sdafik.github.io/tender-document-package-builder/
 
 ## Run locally
 
@@ -17,6 +17,12 @@ npm run build
 ```
 
 The production site is a static Vite build in `dist/`. HTTPS is required for Web Crypto in production; localhost also works. No backend, database, authentication, storage service, analytics, or external AI is used. All app assets, including the PDF.js worker, are served from the same origin. Files are held in memory and cleared on refresh or a successful tender change.
+
+## Free hosting
+
+The primary host is GitHub Pages, publishing the root of the `gh-pages` branch. Use `npm run build:pages` to build with the repository subpath, then publish the contents of `dist/` with a `.nojekyll` file to that branch. Source remains on `codex/tender-builder`. Source pushes alone do not update the deployed static branch.
+
+No purchased domain is required. The requested `sadibai.site` domain was not owned by the user and is not used for this deployment.
 
 ## Workflow
 
