@@ -3,11 +3,11 @@
 A browser-only application for checking tender documents and building an ordered, numbered PDF submission. The interface is available in English and Bangla.
 
 - Public source: https://github.com/SDAFIK/tender-document-package-builder
-- Website: https://sdafik.github.io/tender-document-package-builder/
+- Website: [Open Tenderdesk](https://sdafik.github.io/tender-document-package-builder/)
 
 ## Run locally
 
-Use Node.js 22.12+ or 24 and npm.
+Use Node.js 22.13+ (22.x) or 24+ and npm.
 
 ```sh
 npm ci
@@ -20,7 +20,7 @@ The production site is a static Vite build in `dist/`. HTTPS is required for Web
 
 ## Free hosting
 
-The primary host is GitHub Pages, publishing the root of the `gh-pages` branch. Use `npm run build:pages` to build with the repository subpath, then publish the contents of `dist/` with a `.nojekyll` file to that branch. Source remains on `codex/tender-builder`. Source pushes alone do not update the deployed static branch.
+The primary host is GitHub Pages, publishing the root of the `gh-pages` branch. In repository Settings → Pages, select **Deploy from a branch**, **gh-pages**, and **/ (root)**. Use `npm run build:pages` to build with the repository subpath, then publish the contents of `dist/` with a `.nojekyll` file to that branch. Source remains on `codex/tender-builder`. Source pushes alone do not update the deployed static branch. Selecting `/docs` on the source branch produces a 404 because this project has no published `docs` folder.
 
 No purchased domain is required. The requested `sadibai.site` domain was not owned by the user and is not used for this deployment.
 
@@ -61,9 +61,14 @@ For browser tests, extract the provided fictional sample pack into `tmp/sample-p
 npx playwright install chromium --only-shell
 node tests/browser.mjs
 node tests/geometry.mjs
+node tests/live.mjs
 ```
 
 To use a locally installed browser, set `BROWSER_CHANNEL=msedge` or `chrome`. The browser test checks there are zero external requests during the local workflow. Screenshots go to `screenshots/`; the sample package goes to `output/`. Test input documents are not included in the hosted static assets.
+
+`tests/live.mjs` checks the public HTTPS website with synthetic JSON/PDF inputs, including the PDF worker, expiry validation, package download, and Bangla switching. It does not require the sample pack. Set `BASE_URL` to test another deployment with any of the browser scripts. For the GitHub Pages build locally, start `npm run preview -- --base=/tender-document-package-builder/` and set `BASE_URL=http://127.0.0.1:4173/tender-document-package-builder/`.
+
+On 14 October 2026, PDF.js was upgraded to 6.4.299 and Vitest to 4.1.11 to resolve the reported advisories. The updated installation passed all 43 unit tests and `npm audit` reported zero vulnerabilities.
 
 ## Sample submission
 

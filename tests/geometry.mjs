@@ -12,7 +12,7 @@ for(const rotation of [0,90,180,270]){
 const bytes=await source.save();await writeFile('tmp/geometry-source.pdf',bytes);
 const browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
 console.log('Chromium version:',browser.version());
-const page=await browser.newPage();await page.goto('http://127.0.0.1:5173/');
+const page=await browser.newPage();await page.goto(process.env.BASE_URL ?? 'http://127.0.0.1:5173/');
 const data={tender:{tender_id:'GEOMETRY',title:'Page geometry check',procuring_entity:'QA',bidder:'QA',submission_deadline:'2026-10-20'},requirements:[{id:'__proto__',order:1,title_en:'Rotated pages',title_bn:'ঘোরানো পৃষ্ঠা',mandatory:true,has_expiry:false}]};
 await page.getByLabel('Load tender',{exact:true}).setInputFiles({name:'requirements.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(data))});
 await page.getByLabel('Upload PDFs',{exact:true}).setInputFiles({name:'geometry.pdf',mimeType:'application/pdf',buffer:Buffer.from(bytes)});

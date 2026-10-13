@@ -1,6 +1,7 @@
 import { chromium, expect } from '@playwright/test';
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+const baseUrl=(process.env.BASE_URL ?? 'http://127.0.0.1:5173/').replace(/\/+$/, '')+'/';
 const root=process.cwd();const pack=path.join(root,'tmp/sample-pack');
 await mkdir('screenshots',{recursive:true});await mkdir('output',{recursive:true});
 const browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
@@ -8,8 +9,8 @@ console.log('Browser version:',browser.version());
 const context=await browser.newContext({viewport:{width:1440,height:1050},acceptDownloads:true});
 const page=await context.newPage();const errors=[];const external=[];
 page.on('pageerror',e=>errors.push(e.message));
-page.on('request',req=>{if(!req.url().startsWith('http://127.0.0.1:5173')&&!req.url().startsWith('blob:')&&!req.url().startsWith('data:'))external.push(req.url());});
-await page.goto('http://127.0.0.1:5173/');
+page.on('request',req=>{if(!req.url().startsWith(new URL(baseUrl).origin)&&!req.url().startsWith('blob:')&&!req.url().startsWith('data:'))external.push(req.url());});
+await page.goto(baseUrl);
 await page.screenshot({path:'screenshots/01-workspace.png',fullPage:true});
 await page.getByLabel('Load tender',{exact:true}).setInputFiles(path.join(pack,'requirements.json'));
 await expect(page.getByTestId('requirement-R01').locator('.badge')).toHaveText('Missing');

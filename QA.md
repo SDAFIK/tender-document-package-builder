@@ -1,5 +1,13 @@
 # Acceptance verification
 
+## Security and deployment recheck — 14 October 2026
+
+PDF.js 6.4.299 and Vitest 4.1.11 resolve the reported dependency advisories; `npm audit` reports zero vulnerabilities. All 43 unit tests, the GitHub Pages production build, full browser acceptance on the local repository subpath, and the rotated/cropped PDF workflow passed after the upgrade. The restored public HTTPS website passed `node tests/live.mjs`, including HTTP 200, PDF worker loading, expiry validation, package download, and Bangla switching. GitHub Pages is configured to publish `gh-pages` at `/ (root)`; selecting the source branch's nonexistent `/docs` directory was the cause of the 404.
+
+The results below describe the original verification, including historical pixel comparison checks.
+
+The complete browser acceptance suite also passed against the restored public URL with `BASE_URL=https://sdafik.github.io/tender-document-package-builder/`, with zero page errors and zero external requests.
+
 The local application was exercised with the supplied pack and synthetic unseen data. Unit tests, production TypeScript/build checks, real browser interaction, PDF text extraction, and rendered PDF inspection were used. See test scripts for reproducible assertions.
 
 Final result: 43 unit tests passed; TypeScript and Vite production build passed; complete browser acceptance and geometry checks passed in Chrome Headless Shell 153.0.8010.12. CSV download was exercised in the browser. The main workflow was also checked in Microsoft Edge.
